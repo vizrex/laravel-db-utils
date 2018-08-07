@@ -75,7 +75,7 @@ class BackupDatabase extends BaseCommand
         {
             if($compressParam != 'true' && $compressParam != 'false')
             {
-                throw new Exception("Invalid value given for parameter 'compress'. Please provide 'true' or 'false'.");
+                throw new Exception($this->str("invalid_option_value", ['target' => '--compress']));
             }
             else
             {
@@ -91,7 +91,7 @@ class BackupDatabase extends BaseCommand
         {
             if($uploadParam != 'true' && $uploadParam != 'false')
             {
-                throw new Exception("Invalid value given for parameter 'upload'. Please provide 'true' or 'false'.");
+                throw new Exception($this->str("invalid_option_value", ['target' => '--upload']));
             }
             else
             {
@@ -109,8 +109,7 @@ class BackupDatabase extends BaseCommand
             }
             else
             {
-                $this->info("Error: The given path does not exist!");
-                throw new Exception( "Path Not Found!" );
+                throw new Exception($this->str('path_not_found', ['target' => $pathParam]));
             }
         }
         else
@@ -119,7 +118,7 @@ class BackupDatabase extends BaseCommand
             if (!file_exists($defaultPath))
             {
                 mkdir($defaultPath, 0775, true);
-                $this->info("Directory created ".$defaultPath);
+                $this->info($this->str("directory_created", ['target' => $defaultPath]));
             }
             $this->path = $defaultPath;
         }
@@ -151,11 +150,11 @@ class BackupDatabase extends BaseCommand
         DB::statement("SET foreign_key_checks = 1");
         if(!$return)
         {
-            $this->info("Database backup stored at: " . $this->path . $file);            
+            $this->info($this->str("db_backup_stored_at", ['target' => $this->path.$file]));            
         }
         else
         {
-            throw new Exception("An ERROR occured while backing up database!");
+            throw new Exception($this->str("db_backup_failed"));
         }
         
         if($compress == 'true')
@@ -190,15 +189,15 @@ class BackupDatabase extends BaseCommand
     
     private function compressBackupFile($path, $file)
     {
-        $this->info("Compressing the backup file....");
+        $this->info($this->str("compressing_backup_file"));
         
         $compressedFileName = $file . '.tar.xz';
         
         $compressCommand = sprintf('cd %s && tar -cJf %s %s', $path, $compressedFileName, $file);
-        self::runShellCommand($compressCommand, "Compress backup file successfully stored at:", "An ERROR occured while compressing the database file.", $path.$compressedFileName);
+        self::runShellCommand($compressCommand, "Compressed backup file successfully stored at:", "An ERROR occured while compressing the database file.", $path.$compressedFileName);
         
         //delete original file
-        $this->info("Removing original backup file....");
+        $this->info($this->str("deleting_original_file"));
         
         $compressedFileName = $file . '.tar.xz';
         
@@ -225,13 +224,13 @@ class BackupDatabase extends BaseCommand
     {
         $fileContent = file_get_contents($path.$file);
         
-        $this->info('uploading file to dropbox ...');
+        $this->info($this->str("uploading_to_dropbox"));
         Storage::disk('dropbox')->put($file, $fileContent);  
-        $this->info('Done');
+        $this->info($this->str("done_uploading"));
         
-        $this->info('uploading file to google drive ...');
+        $this->info($this->str("uploading_to_google_drive"));
         Storage::disk('google')->put($file, $fileContent);        
-        $this->info('Done');
+        $this->info($this->str("done_uploading"));
     }
     
     protected function setNamespace()

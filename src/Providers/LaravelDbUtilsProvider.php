@@ -43,7 +43,7 @@ class LaravelDbUtilsProvider extends BaseServiceProvider
      * @return void
      */
     public function register()
-    {
+    {        
         //
     }
 }

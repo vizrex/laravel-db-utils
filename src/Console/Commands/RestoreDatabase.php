@@ -62,25 +62,25 @@ class RestoreDatabase extends BaseCommand
         }
         else
         {            
-            throw new Exception( "Path Not Found!" );
+            throw new Exception($this->str('path_not_found', ['target' => $param]));
         }        
 
         if(!empty($this->path))
         {    
-            $this->info('Connecting to Database ' . $this->dbName);  
+            $this->debug($this->str('connecting_to_db', ['target' => $this->dbName]));  
             try 
             {
                 DB::connection()->getPdo();                
             } 
             catch (\Exception $e) 
             {
-                throw new Exception("Could not connect to the database.");                
+                throw new Exception($this->str("db_connection_failure", ['target' => $this->dbName]));                
             }                             
 
             $tables = DB::select('SHOW TABLES');                
             if(!empty($tables))
             {
-                $input = $this->ask("Warning: database has one or more tables, do you want to drop all existing tables before restoring new database? yes/no ");
+                $input = $this->ask($this->str("confirm_drop_tables"));
                 if($input == 'yes')
                 {
                     DB::statement("SET foreign_key_checks = 0");
@@ -90,12 +90,12 @@ class RestoreDatabase extends BaseCommand
                         \Schema::drop($table_array[key($table_array)]);
                     }
                     DB::statement("SET foreign_key_checks = 1");
-                    $this->info("All existing tables dropped."); 
+                    $this->info($this->str("existing_db_tables_dropped")); 
                     $this->restoreDb($this->dbUser, $this->dbPassword, $this->host, $this->dbName, $this->path);                       
                 }
                 else
                 {                    
-                    $this->error("No tables were dropped, restore aborted.");                                                
+                    $this->error($this->str("no_tables_dropped_aborted"));                                                
                 }
             }
             else
@@ -112,15 +112,15 @@ class RestoreDatabase extends BaseCommand
     private function restoreDb($dbUser, $dbPassword, $host, $dbName, $path)
     {
         $command = sprintf('mysql -u %s -p\'%s\' -h %s %s < %s', $dbUser, $dbPassword, $host, $dbName, $path);
-        $this->info("Restoring Database...");        
+        $this->info($this->str("restoring_db"));        
         exec($command, $output, $return);
         if(!$return)
         {
-            $this->info("Database successfully restored.");            
+            $this->info($this->str("db_restored_successfully"));            
         }
         else
         {            
-            throw new Exception( "An ERROR occured while restoring database!" );
+            throw new Exception($this->str("db_restore_failed"));
         }
     }
     

@@ -77,14 +77,14 @@ class CreateDatabase extends BaseCommand
         $setEnv = empty($setEnvOption) ? true : $setEnvOption;
         
         //creating the database
-        $this->info("Creating database " . $dbName . " ...");
+        $this->info($this->str("creating_db", ['target' => $dbName]));
         $command = sprintf("echo 'CREATE DATABASE `%s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci' | mysql -u %s --password=%s -h %s --port %s", $dbName, $dbUser, $dbPassword, $dbHost, $dbPort);
         self::runShellCommand($command, 'Database created successfully:', 'An ERROR occured while creating database', $dbName); 
                 
         if(!empty($newUser))
         {   
             //creating new user
-            $this->info("Creating new user " . $newUser . " ...");
+            $this->info($this->str('creating_new_user', ['target' => $newUser]));
             $command = sprintf('mysql -u %s --password=%s -h %s --port %s -e "CREATE USER %s@%s IDENTIFIED BY \'%s\'"', $dbUser, $dbPassword, $dbHost, $dbPort, $newUser, $dbHost, $newPassword );
             self::runShellCommand($command, 'New user has been created successfully:', 'An ERROR occured while creating new user', $newUser);
             
