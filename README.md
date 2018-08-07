@@ -109,10 +109,8 @@ This command is used to create a database for the application. It can also creat
 - `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678`
 -  `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678 --set_env=false`
 
-
- ### Note: 
-
- * Database charset will be utf8mb4 and collation will be set to utf8mb4_unicode_ci
+ ### Note:
+ - Database charset will be utf8mb4 and collation will be set to utf8mb4_unicode_ci
  * if `--set_env` is true, the following variables in .env will be set:
     *   DB_DATABASE
     *   DB_HOST
