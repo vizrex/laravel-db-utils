@@ -59,7 +59,7 @@ class CreateDatabase extends BaseCommand
     public function handle()
     {      
         
-        $dbName = $this->argument('database_name');
+        $dbName = $this->argument('new_database');
         
         $dbHostOption = $this->option('host');
         $dbHost = !empty($dbHostOption) ? $dbHostOption : config('dbutils.create.host');
@@ -95,8 +95,9 @@ class CreateDatabase extends BaseCommand
         
         if($setEnv)
         {
-            DotenvEditor::backup();
             
+            DotenvEditor::backup();
+            dd('abc');
             $dbUserNameForEnv = $dbUser;
             $dbPasswordForEnv = $dbPassword;
             

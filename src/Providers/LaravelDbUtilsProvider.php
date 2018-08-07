@@ -2,7 +2,7 @@
 
 
 namespace Vizrex\LaravelDbUtils;
-
+use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Vizrex\Laraviz\BaseServiceProvider;
 
 
@@ -35,6 +35,7 @@ class LaravelDbUtilsProvider extends BaseServiceProvider
         
         $this->publishes([
         __DIR__.'/../config/dbutils.php' => config_path('dbutils.php'),
+        __DIR__.'/../config/dotenv-editor.php' => config_path('dotenv-editor.php')
         ]);
     }
     /**

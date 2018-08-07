@@ -1,10 +1,16 @@
 
 # Introduction
 This package contains command line utilities for database operations like backup, restore and create.
-
+#dependencies
+The following packages are used as dependencies:
+- Laravel Dotenv Editor (https://github.com/JackieDo/Laravel-Dotenv-Editor)
+- Laravel Dropbox Driver (https://github.com/benjamincrozat/laravel-dropbox-driver)
+- Flysystem Adapter for Google Drive (https://github.com/nao-pon/flysystem-google-drive)
 # Configuration
 - Publish the configuration using command `php artisan vendor:publish --provider='Vizrex\LaravelDbUtils\LaravelDbUtilsProvider'`
-- This will publish 'dbutils.php' to `/config/dbutils.php` where you can set default behavior for included command line utilities.
+- This will publish 'dbutils.php' and 'dotenv-editor.php to `/config/` 
+- In `dbutils.php`, you can set default behavior for included command line utilities.
+- `dotenv-editor.php` is for configuration file for 'Laravel Dotenv Editor' package (https://github.com/JackieDo/Laravel-Dotenv-Editor) which is used as a dependency.
 - Add the following sections in `disks` array in your `/config/filesystems`
 
 
@@ -31,6 +37,8 @@ This package contains command line utilities for database operations like backup
         GOOGLE_DRIVE_FOLDER_ID=xxxxxxxxxx
 - 
     This will be used to upload database backup file to dropbox and google drive.
+- This gist is helpful for getting google drive credentials: https://gist.github.com/sergomet/f234cc7a8351352170eb547cccd65011
+- 
 
 # Console Commands
 ## db:backup
@@ -72,7 +80,7 @@ This command is used to resotre a database from given file. This command uses fo
 ### Description
 This command is used to create a database for the application. It can also create a new user, give that user previllages for newly created database and set database variables in .env
 ### Signature
-`db:create {new_database}`  
+`db:create {new_database : name for the database to be created}`  
 `{username : A username that has CREATE TABLE privileges}`  
 `{--password= : Password for the user}`  
 `{--host= : Database host.}`  
