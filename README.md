@@ -1,11 +1,14 @@
 
 # Introduction
 This package contains command line utilities for database operations like backup, restore and create.
-#dependencies
+
+# Dependencies
 The following packages are used as dependencies:
 - Laravel Dotenv Editor (https://github.com/JackieDo/Laravel-Dotenv-Editor)
 - Laravel Dropbox Driver (https://github.com/benjamincrozat/laravel-dropbox-driver)
 - Flysystem Adapter for Google Drive (https://github.com/nao-pon/flysystem-google-drive)
+
+
 # Configuration
 - Publish the configuration using command `php artisan vendor:publish --provider='Vizrex\LaravelDbUtils\LaravelDbUtilsProvider'`
 - This will publish 'dbutils.php' and 'dotenv-editor.php to `/config/` 
@@ -37,16 +40,19 @@ The following packages are used as dependencies:
         GOOGLE_DRIVE_FOLDER_ID=xxxxxxxxxx
 - 
     This will be used to upload database backup file to dropbox and google drive.
-- This gist is helpful for getting google drive credentials: https://gist.github.com/sergomet/f234cc7a8351352170eb547cccd65011
-- 
+- This gist is helpful for getting google drive credentials https://gist.github.com/sergomet/f234cc7a8351352170eb547cccd65011
 
 # Console Commands
+
 ## db:backup
+
 ### Description
 A console command to backup the application's default mysql database. the following config variables are used to backup the database:
 - `database.connections.mysql.database`
 - `database.connections.mysql.username`
 - `database.connections.mysql.password`
+
+
 ### Signature
 `db:backup 
         {--path= : The path to save the backup file.}
@@ -57,6 +63,8 @@ A console command to backup the application's default mysql database. the follow
 - If `--path` is not provided, then default path will be used. Default path can be configured in `/config/dbutils.php` as `backup.path`
 - If `--compress` is not provided, default value will be used which can be configured in `/config/dbutils.php` as `backup.compress`
 - If `--upload` is not provided, default value will be used which can be configured in `/config/dbutils.php` as `backup.upload`
+
+
 ### Usage Examples
 - `php artisan db:backup`
 - `php artisan db:backup --path=/backups/ --compress=true`
@@ -73,6 +81,7 @@ This command is used to resotre a database from given file. This command uses fo
 
 ### Signature
 `db:restore {path}`
+
 ### Usage Example
 `db:restore /backups/2018_08_03_12_12_42_726150_db_project.sql`
 
@@ -94,6 +103,8 @@ This command is used to create a database for the application. It can also creat
 - `php artisan db:create db_shop_mgmt --username=root --password=root`
 - `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678`
 -  `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678 --set_env=false`
+
+
  ### Note: 
  * Database charset will be utf8mb4 and collation will be set to utf8mb4_unicode_ci
  * if `--set_env` is true, the following variables in .env will be set:
