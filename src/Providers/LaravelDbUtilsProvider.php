@@ -2,7 +2,6 @@
 
 
 namespace Vizrex\LaravelDbUtils;
-use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Vizrex\Laraviz\BaseServiceProvider;
 
 
@@ -23,20 +22,19 @@ class LaravelDbUtilsProvider extends BaseServiceProvider
             $service = new \Google_Service_Drive($client);
             $adapter = new \Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter($service, $config['folderId']);
             return new \League\Flysystem\Filesystem($adapter);
-        });
-        
-        $this->commands([
-            'Vizrex\LaravelDbUtils\Console\Commands\BackupDatabase',
-            'Vizrex\LaravelDbUtils\Console\Commands\RestoreDatabase',
-            'Vizrex\LaravelDbUtils\Console\Commands\CreateDatabase'
-            ]);
+        });               
         
         $this->loadTranslationsFrom(__DIR__."/../resources/lang", self::getNamespace());
         
         $this->publishes([
-        __DIR__.'/../config/dbutils.php' => config_path('dbutils.php'),
-        __DIR__.'/../config/dotenv-editor.php' => config_path('dotenv-editor.php')
+        __DIR__.'/../config/dbutils.php' => config_path('dbutils.php')        
         ]);
+        
+        $this->commands([
+           'Vizrex\LaravelDbUtils\Console\Commands\BackupDatabase',
+           'Vizrex\LaravelDbUtils\Console\Commands\RestoreDatabase',
+           'Vizrex\LaravelDbUtils\Console\Commands\CreateDatabase'
+           ]);
     }
     /**
      * Register the application services.
@@ -45,6 +43,6 @@ class LaravelDbUtilsProvider extends BaseServiceProvider
      */
     public function register()
     {        
-        //
+        $this->app->bind('dotenv-editor', 'Jackiedo\DotenvEditor\DotenvEditor');
     }
 }
