@@ -11,10 +11,9 @@ The following packages are used as dependencies:
 
 # Configuration
 - Publish the configuration using command `php artisan vendor:publish --provider='Vizrex\LaravelDbUtils\LaravelDbUtilsProvider'`
-- This will publish 'dbutils.php' and 'dotenv-editor.php to `/config/` 
+- This will publish 'dbutils.php' to `config/` 
 - In `dbutils.php`, you can set default behavior for included command line utilities.
-- `dotenv-editor.php` is for configuration file for 'Laravel Dotenv Editor' package (https://github.com/JackieDo/Laravel-Dotenv-Editor) which is used as a dependency.
-- Add the following sections in `disks` array in your `/config/filesystems`
+- Add the following sections in `disks` array in your `config/filesystems`
 
 
         'dropbox' => [
@@ -60,9 +59,9 @@ A console command to backup the application's default mysql database. the follow
         {--compress= : Whether to compress the backup file. It accepts true or false}
         {--upload= : Whether to upload the backup file to Dropbox and Google Drive. It accepts true or false}                
         `
-- If `--path` is not provided, then default path will be used. Default path can be configured in `/config/dbutils.php` as `backup.path`
-- If `--compress` is not provided, default value will be used which can be configured in `/config/dbutils.php` as `backup.compress`
-- If `--upload` is not provided, default value will be used which can be configured in `/config/dbutils.php` as `backup.upload`
+- If `--path` is not provided, then default path will be used. Default path can be configured in `config/dbutils.php` as `backup.path`
+- If `--compress` is not provided, default value will be used which can be configured in `config/dbutils.php` as `backup.compress`
+- If `--upload` is not provided, default value will be used which can be configured in `config/dbutils.php` as `backup.upload`
 
 
 ### Usage Examples
@@ -101,13 +100,13 @@ This command is used to create a database for the application. It can also creat
 `{--set_env=true: Whether to write database variables to .env . It accepts true or false, default is true}`
 
 #### Default configuration:
-- `create` array in `/config/dbutils.php` is used to set default values for host and port options.
+- `create` array in `config/dbutils.php` is used to set default values for host and port options.
 
 
 ### Usage Examples
 - `php artisan db:create db_shop_mgmt --username=root --password=root`
 - `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678`
--  `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678 --set_env=false`
+- `php artisan db:create db_shop_mgmt --username=root --password=root --new_user=user123 --new_password=12345678 --set_env=false`
 
  ### Note:
  - Database charset will be utf8mb4 and collation will be set to utf8mb4_unicode_ci
@@ -117,6 +116,8 @@ This command is used to create a database for the application. It can also creat
     *   DB_PORT
     *   DB_USERNAME
     *   DB_PASSWORD
+
+Backup of .env will be automatically stored at `storage/dotenv-editor/backups/` before new values are written.
 
 
 
