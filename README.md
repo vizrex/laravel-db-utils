@@ -6,13 +6,13 @@ This package contains command line utilities for database operations like backup
 The following packages are used as dependencies:
 - Laravel Dotenv Editor (https://github.com/JackieDo/Laravel-Dotenv-Editor)
 - Laravel Dropbox Driver (https://github.com/benjamincrozat/laravel-dropbox-driver)
-- Flysystem Adapter for Google Drive (https://github.com/nao-pon/flysystem-google-drive)
+- Filesystem Adapter for Google Drive (https://github.com/nao-pon/flysystem-google-drive)
 
 
 # Configuration
 - Publish the configuration using command `php artisan vendor:publish --provider='Vizrex\LaravelDbUtils\LaravelDbUtilsProvider'`
-- This will publish 'dbutils.php' to `config/` 
-- In `dbutils.php`, you can set default behavior for included command line utilities.
+- This will publish `dbutils.php` to `config/` 
+- In `dbutils.php`, you can set default behaviour for included command line utilities.
 - Add the following sections in `disks` array in your `config/filesystems`
 
 
@@ -87,7 +87,7 @@ This command is used to resotre a database from given file. This command uses fo
 ## db:create
 
 ### Description
-This command is used to create a database for the application. It can also create a new user, give that user previllages for newly created database and set database variables in .env
+This command is used to create a database for the application. It can also create a new user, give that user the previllages for newly created database and set database variables in .env
 
 ### Signature
 `db:create {new_database : name for the database to be created}`  
