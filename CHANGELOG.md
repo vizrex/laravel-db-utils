@@ -5,5 +5,9 @@
 
 > The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## x.y.z
-- Add Items Here
+## 1.0.0
+- db:backup
+- db:restore
+- db:create
+- Upload on Google Drive
+- Upload on Dropbox
