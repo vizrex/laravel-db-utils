@@ -2,20 +2,14 @@
     "name": "vizrex/laravel-db-utils",
     "description": "This package provides command line utilities for database related operations like create, backup and restore.",
     "type": "laravel-package",
-    "repositories": [{
-        "type": "path",
-        "url": "../laraviz",
-        "options": {
-            "symlink": true
-        }
-    }],
+    "license": "proprietary",
     "authors": [{
         "name": "Vizrex",
         "email": "laravel@vizrex.com"
     }],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
-        "vizrex/laraviz": "dev-dev",
+        "vizrex/laraviz": "~1",
         "benjamincrozat/laravel-dropbox-driver": "^2.0",
         "jackiedo/dotenv-editor": "1.*",
         "nao-pon/flysystem-google-drive": "~1.1"
@@ -30,9 +24,6 @@
             "providers": [
                 "Vizrex\\LaravelDbUtils\\LaravelDbUtilsProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "dev"
         }
     }
 }
