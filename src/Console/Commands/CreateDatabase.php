@@ -97,7 +97,6 @@ class CreateDatabase extends BaseCommand
         {
             
             DotenvEditor::backup();
-            dd('abc');
             $dbUserNameForEnv = $dbUser;
             $dbPasswordForEnv = $dbPassword;
             
