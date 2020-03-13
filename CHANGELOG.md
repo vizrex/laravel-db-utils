@@ -5,6 +5,9 @@
 
 > The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.1
+- Added 'Host' in db:backup
+
 ## 1.0.0
 - db:backup
 - db:restore

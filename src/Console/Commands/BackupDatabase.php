@@ -127,6 +127,7 @@ class BackupDatabase extends BaseCommand
         $dbName = Config::get("database.connections.mysql.database");
         $dbUser = Config::get("database.connections.mysql.username");
         $dbPassword = Config::get("database.connections.mysql.password");
+        $dbHost = Config::get("database.connections.mysql.host");
         
         $t = microtime(true);
         $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
@@ -144,7 +145,7 @@ class BackupDatabase extends BaseCommand
         
         //backing up the database
         $this->info("Backing up the database...");
-        $command = sprintf('mysqldump %s -u %s -p\'%s\' %s --single-transaction --no-create-db --disable-keys > %s', $dbName, $dbUser, $dbPassword, $ignoredTablesString, $this->path . $file);
+        $command = sprintf('mysqldump %s -h %s -u %s -p\'%s\' %s --single-transaction --no-create-db --disable-keys > %s', $dbName, $dbHost, $dbUser, $dbPassword, $ignoredTablesString, $this->path . $file);
         DB::statement("SET foreign_key_checks = 0");
         exec($command, $output, $return);
         DB::statement("SET foreign_key_checks = 1");
